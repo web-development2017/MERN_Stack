@@ -23,17 +23,22 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 if(process.env.NODE_ENV === "production"){
-    // app.use(express.static("client/build"));
-    app.use(express.static(path.join(__dirname, '/client/build')));
+    console.log("Production")
+    // app.get('/', (req, res)=>{
+    //     res.send(__dirname);
+    // });
+   
+    app.use(express.static(path.join(__dirname, '../client/build')));
 
-    // error in logs shows Error: Cannot find module 'dotenv'
     app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+        // res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+        res.sendFile(path.join(__dirname+ '../client/build/index.html'));
     });
 }else{
-    app.get('/', (req, res)=>{
-        res.send("Api running");
-    })
+    console.log("Development")
+    // app.get('/', (req, res)=>{
+    //     res.send("Api running");
+    // });
 }
 
 app.listen(port, console.log(`Server running on port ${port}`));
