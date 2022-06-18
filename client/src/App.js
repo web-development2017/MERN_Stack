@@ -27,7 +27,8 @@ import { ApolloProvider, ApolloClient, InMemoryCache} from "@apollo/client";
 // });
 
 const client = new ApolloClient({
-  uri: 'https://mernstack888.herokuapp.com/graphql',
+  uri: process.env.NODE_ENV === 'development' ? 'http://localhost:5000/graphql': 'https://mernstack888.herokuapp.com/graphql',
+  // uri: 'http://localhost:5000/graphql',
   cache: new InMemoryCache()
   // cache
 })
