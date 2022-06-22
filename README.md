@@ -1,2 +1,2 @@
 # MERN_Stack
-Node, Express, GraphQL, MongoDB Atlas, Heroku. 
+React, Node, Express, GraphQL, MongoDB Atlas, Heroku. 
