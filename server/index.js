@@ -23,23 +23,16 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 if(process.env.NODE_ENV === "production"){
-    console.log("Production")
-    // app.get('/', (req, res)=>{
-    //     res.send(__dirname);
-    // });
+    console.log("Production");
    
     app.use(express.static(path.join(__dirname, '../client/build')));
 
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../', 'client', 'build', 'index.html'));
-        // res.sendFile(path.join(__dirname+ '../client/build/index.html'));
     });
     
 }else{
     console.log("Development")
-    // app.get('/', (req, res)=>{
-    //     res.send("Api running");
-    // });
 }
 
 app.listen(port, console.log(`Server running on port ${port}`));
