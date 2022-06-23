@@ -1,6 +1,7 @@
 //Mongoose Models
 const Project = require('../models/Project');
 const Client = require('../models/Client');
+const Register = require('../models/Register');
 
 const { 
     GraphQLObjectType,
@@ -16,10 +17,10 @@ const {
 const ProjectType = new GraphQLObjectType({
     name: 'Project',
     fields: () =>({
-        id: { type: GraphQLID},
-        name: { type: GraphQLString},
-        description: { type: GraphQLString},
-        status: { type: GraphQLString},
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: { type: GraphQLString },
         client: {
             type: ClientType,
             resolve(parent, args){
@@ -33,11 +34,30 @@ const ProjectType = new GraphQLObjectType({
 const ClientType = new GraphQLObjectType({
     name: 'Client',
     fields: () =>({
-        id: { type: GraphQLID},
-        name: { type: GraphQLString},
-        email: { type: GraphQLString},
-        phone: { type: GraphQLString}
-    }),
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString }
+    })
+});
+
+//User Type
+const UserType = new GraphQLObjectType({
+    name: 'User',
+    fields: () =>({
+        username: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+        token: { type: GraphQLString }
+    })
+});
+const RegisterType = new GraphQLObjectType({
+    name: 'Register',
+    fields: () =>({
+        username: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
+    })
 });
 
 const RootQuery = new GraphQLObjectType({
@@ -77,6 +97,26 @@ const RootQuery = new GraphQLObjectType({
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields:{
+
+        //Register User
+        registerUser:{
+            type: RegisterType,
+            args: { 
+                username: {type: GraphQLNonNull(GraphQLString)},
+                email: {type: GraphQLNonNull(GraphQLString)},
+                password: {type: GraphQLNonNull(GraphQLString)}
+            },
+            resolve(parent, args){
+                const newUser = new Register({
+                    username: args.name,
+                    email: args.email,
+                    password: args.password
+                });
+                return newUser.save()
+            }
+        },
+
+        //Add Client
         addClient:{
             type: ClientType,
             args: {
