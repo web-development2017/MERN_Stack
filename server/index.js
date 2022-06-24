@@ -22,6 +22,10 @@ app.use('/graphql', graphqlHTTP({
     graphiql: process.env.NODE_ENV === 'development',
 }));
 
+app.post('/auth/register', (req, res) => {
+    res.send('hello world')
+})
+
 if(process.env.NODE_ENV === "production"){
     console.log("Production")
     // app.get('/', (req, res)=>{
