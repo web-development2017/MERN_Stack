@@ -32,7 +32,7 @@ export default function RegisterUser() {
         // postData('https://localhost:3000/signup', { answer: 42 }).then(data => {
         //     console.log(data); // JSON data parsed by `data.json()` call
         // });
-        fetch('/register', {
+        fetch('http://localhost:5000/auth/register', {
             method: 'POST'
         });
       
@@ -64,7 +64,7 @@ export default function RegisterUser() {
                     </div>
                     {/* Password */}
                     <div className="mb-3">
-                        <label className="form-label">Phone</label>
+                        <label className="form-label">Password</label>
                         <input type="text" className="form-control" id="password"  value={ password }  onChange={(e) => setPassword(e.target.value)}/>
                     </div>
 
