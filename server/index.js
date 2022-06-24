@@ -1,5 +1,4 @@
 const express = require('express');
-const colors = require('colors');
 const path = require("path");
 const cors = require('cors')
 
@@ -21,7 +20,7 @@ app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV === 'development',
 }));
-
+    
 if(process.env.NODE_ENV === "production"){
     console.log("Production");
    
@@ -30,9 +29,12 @@ if(process.env.NODE_ENV === "production"){
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, '../', 'client', 'build', 'index.html'));
     });
+
+    app.post('/register', require('./Routes/routes'));
     
 }else{
-    console.log("Development")
+    console.log("Development");
+    app.post('/register', require('./Routes/routes'));
 }
 
 app.listen(port, console.log(`Server running on port ${port}`));
