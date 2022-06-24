@@ -32,9 +32,16 @@ export default function RegisterUser() {
         // postData('https://localhost:3000/signup', { answer: 42 }).then(data => {
         //     console.log(data); // JSON data parsed by `data.json()` call
         // });
-        fetch('http://localhost:5000/auth/register', {
-            method: 'POST'
-        });
+        if(process.env.NODE_ENV === 'development'){
+            fetch('http://localhost:5000/auth/register', {
+                method: 'POST'
+            });
+        }else{
+            fetch('https://mernstack888.herokuapp.com/auth/register', {
+                method: 'POST'
+            });
+        }
+        
       
         //Clear form
         setUsername('');
