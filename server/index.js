@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require("path");
 const cors = require('cors');
+const bodyParser = require("body-parser");
 
 require('dotenv').config();
 
@@ -22,8 +23,12 @@ app.use('/graphql', graphqlHTTP({
     graphiql: process.env.NODE_ENV === 'development',
 }));
 
-app.post('/auth/register', (req, res) => {
-    res.send('hello world')
+app.use(bodyParser.json()) // for parsing application/json
+// app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.post('/auth/register', (req, res) => {    
+    let password = req.body.password;
+    console.log(password)
+
 })
     
 if(process.env.NODE_ENV === "production"){
