@@ -9,6 +9,7 @@ require('dotenv').config();
 const{ graphqlHTTP } = require('express-graphql');
 const schema = require('./schema/schema');
 const connectDB = require('./config/db');
+const { registerUser } = require('./controllers/userController');
 const port = process.env.PORT || 5000;
 
 const app = express();
@@ -24,12 +25,11 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 app.use(bodyParser.json()) // for parsing application/json
-// app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.post('/auth/register', (req, res) => {    
-    let password = req.body.password;
-    console.log(password)
-
-})
+// app.post('/auth/register', (req, res) => {    
+//     let password = req.body.password;
+//     console.log(password)
+// });
+app.post('/auth/register', registerUser);
     
 if(process.env.NODE_ENV === "production"){
     console.log("Production");
